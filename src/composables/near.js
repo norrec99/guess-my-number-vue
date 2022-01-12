@@ -5,16 +5,16 @@ const gameError = ref(null);
 
 export const useGame = () => {
   const handleCreateGame = async ({ attachedDeposit }) => {
-    createGame({ attachedDeposit });
+    await createGame({ attachedDeposit });
   };
 
   const handleGameIds = async () => {
-    getGameIds();
+    return await getGameIds();
   };
 
   onMounted(async () => {
     try {
-      handleGameIds();
+      await handleGameIds();
       console.log(handleGameIds());
     } catch (e) {
       gameError.value = e;

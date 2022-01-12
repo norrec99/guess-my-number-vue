@@ -30,22 +30,8 @@ export default {
     const { createGame } = useGame();
 
     const handleCreate = async () => {
-      createGame({ attachedDeposit: attachedDeposit.value });
+      await createGame({ attachedDeposit: attachedDeposit.value });
     };
-
-    // const handleGameId = () => {
-    //   getGameId();
-    // };
-
-    // onMounted(async () => {
-    //   try {
-    //     handleGameId();
-    //     console.log(handleGameId);
-    //   } catch (e) {
-    //     gameError.value = e;
-    //     console.log(gameError.value);
-    //   }
-    // });
 
     return {
       createGame,
