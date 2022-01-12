@@ -24,16 +24,35 @@ import { useGame } from '@/composables/near';
 export default {
   setup() {
     const attachedDeposit = ref(0);
+    const gameId = ref(null);
+    const gameError = ref(null);
+
     const { createGame } = useGame();
 
-    const handleCreate = () => {
+    const handleCreate = async () => {
       createGame({ attachedDeposit: attachedDeposit.value });
     };
+
+    // const handleGameId = () => {
+    //   getGameId();
+    // };
+
+    // onMounted(async () => {
+    //   try {
+    //     handleGameId();
+    //     console.log(handleGameId);
+    //   } catch (e) {
+    //     gameError.value = e;
+    //     console.log(gameError.value);
+    //   }
+    // });
 
     return {
       createGame,
       attachedDeposit,
-      handleCreate
+      handleCreate,
+      gameId,
+      gameError
     };
   }
 };
