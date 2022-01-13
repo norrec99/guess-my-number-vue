@@ -1,4 +1,4 @@
-import { createGame, getGameIds } from '../services/near';
+import { createGame, getLastGames } from '../services/near';
 import { ref, onMounted } from 'vue';
 
 const gameError = ref(null);
@@ -8,14 +8,13 @@ export const useGame = () => {
     await createGame({ attachedDeposit });
   };
 
-  const handleGameIds = async () => {
-    return await getGameIds();
+  const handleGames = async () => {
+    return await getLastGames();
   };
 
   onMounted(async () => {
     try {
-      await handleGameIds();
-      console.log(handleGameIds());
+      await handleGames();
     } catch (e) {
       gameError.value = e;
       console.log(gameError.value);
@@ -24,6 +23,6 @@ export const useGame = () => {
 
   return {
     createGame: handleCreateGame,
-    getGameIds: handleGameIds
+    getLastGames: handleGames
   };
 };
