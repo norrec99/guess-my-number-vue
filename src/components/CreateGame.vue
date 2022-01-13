@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="handleCreate" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create a game</button>
-    <p v-if="attachedDeposit > 0">You have successfully deposit {{ attachedDeposit }}</p>
+    <p v-if="isCreated > 0">You have successfully deposit {{ attachedDeposit }}</p>
     <div class="col-span-6 sm:col-span-6 lg:col-span-3">
       <label for="tip" class="sr-only">Tip</label>
       <div class="mt-1 relative rounded-md shadow-sm">
@@ -24,12 +24,14 @@ import { useGame } from '@/composables/near';
 export default {
   setup() {
     const attachedDeposit = ref(0);
-    const gameId = ref(null);
+    const isCreated = ref(false);
+    const games = ref([]);
     const gameError = ref(null);
 
     const { createGame } = useGame();
 
     const handleCreate = async () => {
+      isCreated.value = true;
       await createGame({ attachedDeposit: attachedDeposit.value });
     };
 
@@ -37,8 +39,9 @@ export default {
       createGame,
       attachedDeposit,
       handleCreate,
-      gameId,
-      gameError
+      games,
+      gameError,
+      isCreated
     };
   }
 };
