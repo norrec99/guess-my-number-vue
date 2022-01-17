@@ -1,6 +1,6 @@
 import * as nearAPI from 'near-api-js'; // import BN from 'bn.js';
 
-export const CONTRACT_ID = 'dev-1641814602199-59406748281412';
+export const CONTRACT_ID = 'dev-1642418168239-40754876489419';
 // const gas = new BN('70000000000000');
 
 const near = new nearAPI.Near({
@@ -11,6 +11,10 @@ const near = new nearAPI.Near({
 });
 
 export const wallet = new nearAPI.WalletConnection(near);
+
+export const formatNEAR = near => {
+  return nearAPI.utils.format.formatNearAmount(near, 1);
+};
 
 const contract = new nearAPI.Contract(
   wallet.account(),
