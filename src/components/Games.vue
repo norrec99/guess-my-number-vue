@@ -13,7 +13,7 @@
           <li>
             <div class="py-1">
               <MenuItem class="flex justify-between">
-                <a href="#" class="hover:bg-gray-100 text-gray-900 group flex items-center px-4 py-2 text-sm">
+                <div @click="handleJoin(game.id)" class="hover:bg-gray-100 text-gray-900 group flex items-center px-4 py-2 text-sm">
                   {{ game.id }}
                   <span>--------</span>
 
@@ -25,7 +25,7 @@
                       ></path></svg
                     >{{ creationAmount }}
                   </div>
-                </a>
+                </div>
               </MenuItem>
             </div>
           </li>
@@ -56,7 +56,7 @@ export default {
     const creationAmount = ref(null);
     const gameError = ref(null);
 
-    const { getLastGames, formatNEAR } = useGame();
+    const { getLastGames, joinGame, formatNEAR } = useGame();
 
     onMounted(async () => {
       try {
@@ -74,11 +74,17 @@ export default {
       }
     });
 
+    async function handleJoin(id) {
+      console.log(creationAmount.value);
+      await joinGame(id, { attachedDeposit: creationAmount.value });
+    }
+
     return {
       getLastGames,
       games,
       gameError,
-      creationAmount
+      creationAmount,
+      handleJoin
     };
   }
 };

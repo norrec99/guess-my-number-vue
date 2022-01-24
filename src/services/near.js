@@ -23,7 +23,7 @@ const contract = new nearAPI.Contract(
   {
     // name of contract you're connecting to
     viewMethods: ['get_lastGames'], // view methods do not change state but usually return a value
-    changeMethods: ['createGame'], // change methods modify state
+    changeMethods: ['createGame', 'joinGame'], // change methods modify state
     sender: wallet.account() // account object to initialize and sign transactions.
   }
 );
@@ -32,6 +32,11 @@ const contract = new nearAPI.Contract(
 export const createGame = async ({ attachedDeposit }) => {
   attachedDeposit = nearAPI.utils.format.parseNearAmount(attachedDeposit);
   return await contract.createGame({}, 300000000000000, attachedDeposit);
+};
+
+export const joinGame = async (id, attachedDeposit) => {
+  attachedDeposit = nearAPI.utils.format.parseNearAmount(attachedDeposit);
+  return await contract.joinGame({ id: id }, attachedDeposit);
 };
 
 export const getLastGames = async () => {
