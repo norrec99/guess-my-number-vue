@@ -56,11 +56,11 @@ export default {
     const creationAmount = ref(null);
     const gameError = ref(null);
 
-    const { getLastGames, joinGame, formatNEAR } = useGame();
+    const { joinGame, formatNEAR, viewAllGames } = useGame();
 
     onMounted(async () => {
       try {
-        await getLastGames().then(game => {
+        await viewAllGames().then(game => {
           const rawContent = toRaw(game);
           rawContent.map(value => {
             games.value.push(value);
@@ -77,10 +77,10 @@ export default {
     async function handleJoin(id) {
       console.log(creationAmount.value);
       await joinGame(id, { attachedDeposit: creationAmount.value });
+      console.log(joinGame);
     }
 
     return {
-      getLastGames,
       games,
       gameError,
       creationAmount,

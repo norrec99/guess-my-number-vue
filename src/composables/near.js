@@ -1,29 +1,21 @@
-import { createGame, getLastGames, formatNEAR, joinGame } from '../services/near';
-import { ref, onMounted } from 'vue';
-
-const gameError = ref(null);
+import { createGame, formatNEAR, joinGame, viewAllGames, viewGame } from '../services/near';
 
 export const useGame = () => {
   const handleCreateGame = async ({ attachedDeposit }) => {
     await createGame({ attachedDeposit });
   };
 
-  const handleGames = async () => {
-    return await getLastGames();
+  const handleAllGames = async () => {
+    return await viewAllGames();
+  };
+
+  const handleGame = async id => {
+    return await viewGame(id);
   };
 
   const handleJoinGame = async (id, { attachedDeposit }) => {
     await joinGame(id, { attachedDeposit });
   };
-
-  onMounted(async () => {
-    try {
-      await handleGames();
-    } catch (e) {
-      gameError.value = e;
-      console.log(gameError.value);
-    }
-  });
 
   const formatAmount = near => {
     return formatNEAR(near);
@@ -31,8 +23,9 @@ export const useGame = () => {
 
   return {
     createGame: handleCreateGame,
-    getLastGames: handleGames,
     formatNEAR: formatAmount,
-    joinGame: handleJoinGame
+    joinGame: handleJoinGame,
+    viewGame: handleGame,
+    viewAllGames: handleAllGames
   };
 };
