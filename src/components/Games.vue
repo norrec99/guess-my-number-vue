@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ref, onMounted, toRaw } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import { useGame } from '@/composables/near';
 
@@ -56,18 +56,11 @@ export default {
     const creationAmount = ref(null);
     const gameError = ref(null);
 
-    const { joinGame, formatNEAR, viewAllGames } = useGame();
+    const { joinGame, playableGames } = useGame();
 
     onMounted(async () => {
       try {
-        await viewAllGames().then(game => {
-          const rawContent = toRaw(game);
-          rawContent.map(value => {
-            games.value.push(value);
-            creationAmount.value = formatNEAR(value.creationAmount);
-          });
-          console.log(games.value);
-        });
+        await playableGames(games, creationAmount);
       } catch (e) {
         gameError.value = e;
         console.log(gameError.value);
@@ -76,6 +69,7 @@ export default {
 
     async function handleJoin(id) {
       console.log(creationAmount.value);
+
       await joinGame(id, { attachedDeposit: creationAmount.value });
       console.log(joinGame);
     }
