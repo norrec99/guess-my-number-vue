@@ -1,9 +1,9 @@
 <template>
   <Navbar />
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <Games />
+    <!-- <Games /> -->
+    <GameList />
     <CreateGame />
-    <JoinGame />
     <Player />
   </div>
 </template>
@@ -12,8 +12,8 @@
 import Navbar from '@/components/Navbar.vue';
 import Player from '@/components/Player.vue';
 import CreateGame from '@/components/CreateGame.vue';
-import JoinGame from '@/components/JoinGame.vue';
-import Games from '@/components/Games.vue';
+import GameList from '@/components/GameList.vue';
+// import Games from '@/components/Games.vue';
 
 export default {
   name: 'App',
@@ -21,8 +21,8 @@ export default {
     Navbar,
     Player,
     CreateGame,
-    JoinGame,
-    Games
+    // Games,
+    GameList
   }
 };
 </script>
